@@ -9,10 +9,11 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    title: `SoT Cookmate`,
+    description: `Sea of Thieves cooking timer`,
+    author: `Lukpaikat`,
+    // TODO: ganti jadi githubnya
+    siteUrl: `http://localhost:8000/`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -40,5 +41,25 @@ module.exports = {
       },
     },
     `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-omni-font-loader`,
+      options: {
+        enableListener: true,
+        preconnect: [
+          `https://fonts.googleapis.com`,
+          `https://fonts.gstatic.com`,
+        ],
+        web: [
+          {
+            name: `Josefin Sans`,
+            file: `https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap`,
+          },
+          {
+            name: `Syne Mono`,
+            file: `href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap"`,
+          },
+        ],
+      },
+    },
   ],
-}
+};
