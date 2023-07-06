@@ -1,16 +1,8 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import * as React from "react";
+import { Link } from "gatsby";
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      margin: `0 auto`,
-      padding: `var(--space-4) var(--size-gutter)`,
-      display: `flex`,
-      alignItems: `center`,
-      justifyContent: `space-between`,
-    }}
-  >
+  <header className="flex justify-between p-2">
     <Link
       to="/"
       style={{
@@ -21,6 +13,6 @@ const Header = ({ siteTitle }) => (
       {siteTitle}
     </Link>
   </header>
-)
+);
 
-export default Header
+export default Header;

@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "class-variance-authority": "^0.6.1",
+    "clsx": "^1.2.1",
     "gatsby": "^5.11.0",
     "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-plugin-image": "^3.11.0",
@@ -12,9 +14,12 @@
     "gatsby-plugin-sharp": "^5.11.0",
     "gatsby-source-filesystem": "^5.11.0",
     "gatsby-transformer-sharp": "^5.11.0",
+    "lucide-react": "^0.258.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "tailwind-merge": "^1.13.2",
+    "tailwindcss-animate": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
