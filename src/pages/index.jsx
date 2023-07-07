@@ -11,6 +11,13 @@ import { useTimer } from "react-timer-hook";
 import formatSeconds from "../tools/formatSeconds";
 import limitSeconds from "../tools/limitSeconds";
 
+const visualAlarmBackgroundColor = {
+  raw: "bg-transparent",
+  cooked: "bg-green-500",
+  burnt: "bg-yellow-500",
+  onFire: "bg-red-500",
+};
+
 const IndexPage = () => {
   const timeToCooked = 60;
   const timeToBurnt = 120;
@@ -22,16 +29,14 @@ const IndexPage = () => {
     return time;
   };
 
-  const [isCooked, setIsCooked] = React.useState(false);
-  const [isBurnt, setIsBurnt] = React.useState(false);
-  const [isOnFire, setIsOnFIre] = React.useState(false);
+  const [foodStatus, setFoodStatus] = React.useState("raw"); // raw, cooked, burnt, onFire
   const [isStarted, setIsStarted] = React.useState(false);
 
   /* Cooking timer */
   const { start, pause, resume, restart, totalSeconds, isRunning } = useTimer({
     expiryTimestamp: getMaxCookingTime,
     autoStart: false,
-    onExpire: () => setIsOnFIre(true),
+    onExpire: () => setFoodStatus("onFire"),
   });
 
   const timerStart = () => {
@@ -51,17 +56,13 @@ const IndexPage = () => {
   };
 
   const timerRestart = () => {
-    setIsCooked(false);
-    setIsBurnt(false);
-    setIsOnFIre(false);
+    setFoodStatus("raw");
     setIsStarted(false);
     restart(getMaxCookingTime(), true);
   };
 
   const timerStop = () => {
-    setIsCooked(false);
-    setIsBurnt(false);
-    setIsOnFIre(false);
+    setFoodStatus("raw");
     setIsStarted(false);
     restart(getMaxCookingTime(), false);
   };
@@ -78,13 +79,13 @@ const IndexPage = () => {
   });
 
   React.useLayoutEffect(() => {
-    if (!isCooked && toCookedSeconds === 0) {
-      setIsCooked(true);
+    if (foodStatus === "raw" && toCookedSeconds === 0) {
+      setFoodStatus("cooked");
     }
-    if (!isBurnt && toBurntSeconds === 0) {
-      setIsBurnt(true);
+    if (foodStatus === "cooked" && toBurntSeconds === 0) {
+      setFoodStatus("burnt");
     }
-  });
+  }, [foodStatus, toBurntSeconds, toCookedSeconds]);
 
   return (
     <Layout>
@@ -106,12 +107,17 @@ const IndexPage = () => {
         </div>
         {/* Cooked Time Display */}
         <div className="overflow-hidden">
-          <section
-            className={`py-8} my-6 w-full ${
-              isCooked ? "animate-bounce text-green-400" : ""
-            }`}
-          >
-            <p className="text-center font-mono text-6xl">
+          <section className={`relative my-6 w-full py-8`}>
+            <div
+              className={`absolute inset-0 ${
+                visualAlarmBackgroundColor[foodStatus]
+              } ${
+                foodStatus !== "raw"
+                  ? "visible animate-horizontal-pulse"
+                  : "hidden"
+              }`}
+            />
+            <p className="relative z-10 text-center font-mono text-6xl">
               {formatSeconds(toCookedSeconds)}
             </p>
           </section>
@@ -120,11 +126,7 @@ const IndexPage = () => {
         <section>
           <div className="flex justify-between">
             <p className="text-2xl">Burnt</p>
-            <p
-              className={`font-mono text-2xl ${
-                isBurnt ? "animate-bounce text-yellow-400" : ""
-              }`}
-            >
+            <p className={`font-mono text-2xl`}>
               {formatSeconds(toBurntSeconds)}
             </p>
           </div>
