@@ -10,13 +10,7 @@ import {
 import { useTimer } from "react-timer-hook";
 import formatSeconds from "../lib/formatSeconds";
 import limitSeconds from "../lib/limitSeconds";
-
-const visualAlarmBackgroundColor = {
-  raw: "bg-transparent",
-  cooked: "bg-green-500",
-  burnt: "bg-yellow-500",
-  onFire: "bg-red-500",
-};
+import visualAlarmBackgroundColor from '../global/visualAlarmBackground';
 
 const IndexPage = () => {
   const timeToCooked = 60;
