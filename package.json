@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@phosphor-icons/react": "^2.0.10",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
