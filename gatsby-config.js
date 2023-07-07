@@ -56,7 +56,7 @@ module.exports = {
           },
           {
             name: `Syne Mono`,
-            file: `href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap"`,
+            file: `https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap"`,
           },
         ],
       },
