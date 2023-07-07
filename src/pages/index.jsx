@@ -11,8 +11,13 @@ import { useTimer } from "react-timer-hook";
 import formatSeconds from "../lib/formatSeconds";
 import limitSeconds from "../lib/limitSeconds";
 import visualAlarmBackgroundColor from '../global/visualAlarmBackground';
+import foodCookTimes from '../global/foodCookTimes';
 
 const IndexPage = () => {
+  const [foodStatus, setFoodStatus] = React.useState("raw"); // raw, cooked, burnt, onFire
+  const [isStarted, setIsStarted] = React.useState(false);
+  const [selectedFood, setSelectedFood] = React.useState("meat"); // fish, trophyFish, meat, beastMeat
+  
   const timeToCooked = 60;
   const timeToBurnt = 120;
   const timeToOnFire = 300;
@@ -22,9 +27,6 @@ const IndexPage = () => {
     time.setSeconds(time.getSeconds() + timeToOnFire);
     return time;
   };
-
-  const [foodStatus, setFoodStatus] = React.useState("raw"); // raw, cooked, burnt, onFire
-  const [isStarted, setIsStarted] = React.useState(false);
 
   /* Cooking timer */
   const { start, pause, resume, restart, totalSeconds, isRunning } = useTimer({
