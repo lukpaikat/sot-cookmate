@@ -22,10 +22,10 @@ const Layout = ({ children }) => {
   `);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col dark">
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <main>{children}</main>
-      <footer className="text-center mt-auto">
+      <main className="my-auto p-4">{children}</main>
+      <footer className="mt-auto p-2 text-center">
         © {new Date().getFullYear()} &middot; Built with
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>

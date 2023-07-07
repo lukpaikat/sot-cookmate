@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply font-josefin-sans;
+    @apply bg-stone-950 font-josefin-sans text-stone-50;
   }
 }
