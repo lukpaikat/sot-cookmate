@@ -8,8 +8,8 @@ import {
   ArrowCounterClockwise,
 } from "@phosphor-icons/react";
 import { useTimer } from "react-timer-hook";
-import formatSeconds from "../tools/formatSeconds";
-import limitSeconds from "../tools/limitSeconds";
+import formatSeconds from "../lib/formatSeconds";
+import limitSeconds from "../lib/limitSeconds";
 
 const visualAlarmBackgroundColor = {
   raw: "bg-transparent",
