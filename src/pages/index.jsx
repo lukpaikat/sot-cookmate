@@ -5,72 +5,86 @@ import { Button } from "@/components/ui/button";
 import {
   DotsThreeVertical,
   Stop,
-  Play,
   ArrowCounterClockwise,
 } from "@phosphor-icons/react";
 import { useTimer } from "react-timer-hook";
-import { padSeconds } from "../tools/padSeconds";
+import formatSeconds from "../tools/formatSeconds";
+import limitSeconds from "../tools/limitSeconds";
 
 const IndexPage = () => {
-  const getMeatCookTime = () => {
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 60);
-    return time;
-  };
+  const timeToCooked = 60;
+  const timeToBurnt = 120;
+  const timeToOnFire = 300;
 
-  const getMeatBurntTime = () => {
+  const getMaxCookingTime = () => {
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 120);
+    time.setSeconds(time.getSeconds() + timeToOnFire);
     return time;
   };
 
   const [isCooked, setIsCooked] = React.useState(false);
   const [isBurnt, setIsBurnt] = React.useState(false);
+  const [isOnFire, setIsOnFIre] = React.useState(false);
+  const [isStarted, setIsStarted] = React.useState(false);
 
-  /* Cooked Timer */
-  const {
-    start: cookStart,
-    restart: cookRestart,
-    seconds: cookSeconds,
-    minutes: cookMinutes,
-    isRunning,
-  } = useTimer({
-    expiryTimestamp: () => getMeatCookTime(),
-    onExpire: () => setIsCooked(true),
+  /* Cooking timer */
+  const { start, pause, resume, restart, totalSeconds, isRunning } = useTimer({
+    expiryTimestamp: getMaxCookingTime,
     autoStart: false,
+    onExpire: () => setIsOnFIre(true),
   });
 
-  /* Burnt Timer */
-  const {
-    start: burntStart,
-    restart: burntRestart,
-    seconds: burntSeconds,
-    minutes: burntMinutes,
-  } = useTimer({
-    expiryTimestamp: () => getMeatBurntTime(),
-    onExpire: () => setIsBurnt(true),
-    autoStart: false,
+  const timerStart = () => {
+    if (isRunning) {
+      return;
+    }
+    if (isStarted) {
+      resume();
+      return;
+    }
+    start();
+    setIsStarted(true);
+  };
+
+  const timerPause = () => {
+    pause();
+  };
+
+  const timerRestart = () => {
+    setIsCooked(false);
+    setIsBurnt(false);
+    setIsOnFIre(false);
+    setIsStarted(false);
+    restart(getMaxCookingTime(), true);
+  };
+
+  const timerStop = () => {
+    setIsCooked(false);
+    setIsBurnt(false);
+    setIsOnFIre(false);
+    setIsStarted(false);
+    restart(getMaxCookingTime(), false);
+  };
+
+  const toCookedSeconds = limitSeconds({
+    seconds: totalSeconds,
+    initialSeconds: timeToOnFire,
+    limit: timeToCooked,
+  });
+  const toBurntSeconds = limitSeconds({
+    seconds: totalSeconds,
+    initialSeconds: timeToOnFire,
+    limit: timeToBurnt,
   });
 
-  const allTimerStart = () => {
-    if (isRunning) return;
-    cookStart();
-    burntStart();
-  };
-
-  const allTimerRestart = () => {
-    setIsCooked(false);
-    setIsBurnt(false);
-    cookRestart(getMeatCookTime(), true);
-    burntRestart(getMeatBurntTime(), true);
-  };
-
-  const allTimerStop = () => {
-    setIsCooked(false);
-    setIsBurnt(false);
-    cookRestart(getMeatCookTime(), false);
-    burntRestart(getMeatBurntTime(), false);
-  };
+  React.useLayoutEffect(() => {
+    if (!isCooked && toCookedSeconds === 0) {
+      setIsCooked(true);
+    }
+    if (!isBurnt && toBurntSeconds === 0) {
+      setIsBurnt(true);
+    }
+  });
 
   return (
     <Layout>
@@ -98,7 +112,7 @@ const IndexPage = () => {
             }`}
           >
             <p className="text-center font-mono text-6xl">
-              {cookMinutes}:{padSeconds(cookSeconds)}
+              {formatSeconds(toCookedSeconds)}
             </p>
           </section>
         </div>
@@ -111,28 +125,36 @@ const IndexPage = () => {
                 isBurnt ? "animate-bounce text-yellow-400" : ""
               }`}
             >
-              {burntMinutes}:{padSeconds(burntSeconds)}
+              {formatSeconds(toBurntSeconds)}
             </p>
           </div>
           <div className="flex justify-between">
-            <p className="text-2xl">Burning</p>
-            <p className="font-mono text-2xl">5:00</p>
+            <p className="text-2xl">On Fire</p>
+            <p className="font-mono text-2xl">{formatSeconds(totalSeconds)}</p>
           </div>
         </section>
         {/* Controls */}
-        <section className="mx-auto my-8 space-x-10">
-          <Button variant="ghost" size="icon" onClick={allTimerStop}>
-            <Stop size={32} className="text-stone-50" weight="fill" />
+        <section className="mx-auto my-8 flex items-center gap-8">
+          <Button variant="ghost" size="icon" onClick={timerStop}>
+            <Stop size={32} className="text-stone-50" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={allTimerStart}>
-            <Play size={32} className="text-stone-50" weight="fill" />
+          <Button
+            variant={isRunning ? "secondary" : "default"}
+            size="default"
+            onClick={() => {
+              if (isRunning) {
+                timerPause();
+                return;
+              }
+              timerStart();
+            }}
+          >
+            <span className="text-base">
+              {isRunning ? "Pause" : isStarted ? "Resume" : "Start"}
+            </span>
           </Button>
-          <Button variant="ghost" size="icon" onClick={allTimerRestart}>
-            <ArrowCounterClockwise
-              size={32}
-              className="text-stone-50"
-              weight="fill"
-            />
+          <Button variant="ghost" size="icon" onClick={timerRestart}>
+            <ArrowCounterClockwise size={32} className="text-stone-50" />
           </Button>
         </section>
       </div>
