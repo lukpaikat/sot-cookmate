@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
         <main className="my-auto p-4">{children}</main>
         <footer className="mt-auto p-2 text-center">
-          © {new Date().getFullYear()} &middot; Built with
+          © {new Date().getFullYear()} <a href="https://github.com/lukpaikat">lukpaikat</a> &middot; Built with
           {` `}
           <a href="https://www.gatsbyjs.com">Gatsby</a>
         </footer>
