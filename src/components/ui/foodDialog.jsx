@@ -28,7 +28,11 @@ const FoodDialog = ({ onFoodSelected, currentFood, stopTimer }) => {
   };
 
   const toggleAutoStop = () => {
-    setIsAutoStopOnFoodChange(prevState => !prevState);
+    setIsAutoStopOnFoodChange(prevState => {
+      const newState = !prevState;
+      localStorage.setItem("isAutoStopOnFoodChange", newState.toString());
+      return newState
+    });
   };
 
   React.useEffect(() => {
