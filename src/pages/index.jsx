@@ -176,7 +176,7 @@ const IndexPage = () => {
         {/* Controls */}
         <section className="mx-auto my-8 flex items-center gap-8">
           <Button variant="ghost" size="icon" onClick={timerStop}>
-            <Stop size={32} className="text-stone-50" />
+            <Stop size={32} className="text-stone-50" alt="stop" />
           </Button>
           <Button
             variant={isRunning ? "secondary" : "default"}
@@ -194,7 +194,7 @@ const IndexPage = () => {
             </span>
           </Button>
           <Button variant="ghost" size="icon" onClick={timerRestart}>
-            <ArrowCounterClockwise size={32} className="text-stone-50" />
+            <ArrowCounterClockwise size={32} className="text-stone-50" alt="repeat" />
           </Button>
         </section>
       </div>
