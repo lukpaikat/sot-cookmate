@@ -15,6 +15,7 @@ module.exports = {
     // TODO: ganti jadi githubnya
     siteUrl: `http://localhost:8000/`,
   },
+  pathPrefix: `/sot-cookmate`,
   plugins: [
     `gatsby-plugin-image`,
     {
