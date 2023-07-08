@@ -9,6 +9,7 @@ import * as React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "./header";
+import { Helmet } from 'react-helmet';
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -22,15 +23,20 @@ const Layout = ({ children }) => {
   `);
 
   return (
-    <div className="flex min-h-screen flex-col dark">
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <main className="my-auto p-4">{children}</main>
-      <footer className="mt-auto p-2 text-center">
-        © {new Date().getFullYear()} &middot; Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
-      </footer>
-    </div>
+    <>
+      <Helmet>
+        <html className="dark" lang="en"/>
+      </Helmet>
+      <div className="dark flex min-h-screen flex-col">
+        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+        <main className="my-auto p-4">{children}</main>
+        <footer className="mt-auto p-2 text-center">
+          © {new Date().getFullYear()} &middot; Built with
+          {` `}
+          <a href="https://www.gatsbyjs.com">Gatsby</a>
+        </footer>
+      </div>
+    </>
   );
 };
 
