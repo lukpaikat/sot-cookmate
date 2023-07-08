@@ -13,6 +13,7 @@ import FoodDialog from "../components/ui/foodDialog";
 import cookedSound from "../sounds/cooked-sound.mp3";
 import burntSound from "../sounds/burnt-sound.mp3";
 import onFireSound from "../sounds/on-fire-sound.mp3";
+import clickSound from "../sounds/click-sound.mp3";
 
 const IndexPage = () => {
   const [audioContext, setAudioContext] = React.useState(null);
@@ -24,6 +25,7 @@ const IndexPage = () => {
   const [playCooked] = useSound(cookedSound);
   const [playBurnt] = useSound(burntSound);
   const [playOnFire] = useSound(onFireSound);
+  const [playClickSound] = useSound(clickSound);
 
   const timeToCooked = foodCookTimes[selectedFood].cooked;
   const timeToBurnt = foodCookTimes[selectedFood].burnt;
@@ -51,6 +53,7 @@ const IndexPage = () => {
     }
     if (isStarted) {
       resume();
+      playClickSound();
       return;
     }
     if (audioContext === null) {
@@ -58,6 +61,7 @@ const IndexPage = () => {
     }
     start();
     setIsStarted(true);
+    playClickSound();
   };
 
   const timerPause = () => {
@@ -68,6 +72,7 @@ const IndexPage = () => {
     setFoodStatus("raw");
     setIsStarted(false);
     restart(getMaxCookingTime(), true);
+    playClickSound();
   };
 
   const timerStop = () => {

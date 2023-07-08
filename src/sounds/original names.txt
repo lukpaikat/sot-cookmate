@@ -1,6 +1,0 @@
-cooked-sound: success-1-6297.mp3
-burnt-sound: beep-warning-6387.mp3
-on-fire-sound: alarm-no3-14864.mp3
-
-All sounds from pixabay
-// TODO: add credits in settings
