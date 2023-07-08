@@ -3,7 +3,6 @@ import Layout from "../components/layout";
 import Seo from "../components/seo";
 import { Button } from "@/components/ui/button";
 import {
-  DotsThreeVertical,
   Stop,
   ArrowCounterClockwise,
 } from "@phosphor-icons/react";
@@ -11,15 +10,16 @@ import { useTimer } from "react-timer-hook";
 import formatSeconds from "../lib/formatSeconds";
 import limitSeconds from "../lib/limitSeconds";
 import visualAlarmBackgroundColor from '../global/visualAlarmBackground';
-import foodCookTimes from '../global/foodCookTimes';
+import { foodCookTimes, foodDescription } from '../global/foodData';
+import FoodDialog from '../components/ui/foodDialog';
 
 const IndexPage = () => {
   const [foodStatus, setFoodStatus] = React.useState("raw"); // raw, cooked, burnt, onFire
   const [isStarted, setIsStarted] = React.useState(false);
   const [selectedFood, setSelectedFood] = React.useState("meat"); // fish, trophyFish, meat, beastMeat
   
-  const timeToCooked = 60;
-  const timeToBurnt = 120;
+  const timeToCooked = foodCookTimes[selectedFood].cooked;
+  const timeToBurnt = foodCookTimes[selectedFood].burnt;
   const timeToOnFire = 300;
 
   const getMaxCookingTime = () => {
@@ -90,16 +90,17 @@ const IndexPage = () => {
         {/* Food Label */}
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Meat</h1>
-            <p>Chicken, Pork, Snake & Shark</p>
+            <h1 className="text-3xl font-bold">{foodDescription[selectedFood].label}</h1>
+            <p>{foodDescription[selectedFood].description}</p>
           </div>
-          <Button variant="ghost" size="icon">
+          {/* <Button variant="ghost" size="icon">
             <DotsThreeVertical
               size={32}
               weight="bold"
               className="text-stone-50"
             />
-          </Button>
+          </Button> */}
+          <FoodDialog onFoodSelected={setSelectedFood} currentFood={selectedFood} stopTimer={timerStop} />
         </div>
         {/* Cooked Time Display */}
         <div className="overflow-hidden">
