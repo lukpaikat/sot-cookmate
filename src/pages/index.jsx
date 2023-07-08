@@ -181,7 +181,7 @@ const IndexPage = () => {
         {/* Controls */}
         <section className="mx-auto my-8 flex items-center gap-8">
           <Button variant="ghost" size="icon" onClick={timerStop}>
-            <Stop size={32} className="text-stone-50" alt="stop" />
+            <Stop size={32} weight="fill" className="text-stone-50" alt="stop" />
           </Button>
           <Button
             variant={isRunning ? "secondary" : "default"}
