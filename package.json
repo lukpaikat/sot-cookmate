@@ -26,7 +26,8 @@
     "react-helmet": "^6.1.0",
     "react-timer-hook": "^3.0.6",
     "tailwind-merge": "^1.13.2",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss-animate": "^1.0.6",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
