@@ -28,7 +28,7 @@ export const foodDescription = {
   },
   meat: {
     label: "Meat",
-    description: "Chicken, pork, snake & Shark"
+    description: "Chicken, pork, snake & shark"
   },
   beastMeat: {
     label: "Beast Meat",
