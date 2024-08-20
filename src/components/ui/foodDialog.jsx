@@ -83,7 +83,7 @@ const FoodDialog = ({ onFoodSelected, currentFood, stopTimer }) => {
           })}
           <Separator />
           <div className="flex items-center justify-between">
-            <Label htmlFor="stopCurrentTime">Stop running timer on select food</Label>
+            <Label htmlFor="stopCurrentTime">Stop timer on food type change</Label>
             <Switch
               checked={isAutoStopOnFoodChange}
               onCheckedChange={toggleAutoStop}
